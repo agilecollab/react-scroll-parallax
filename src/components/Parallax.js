@@ -110,12 +110,8 @@ export default class Parallax extends Component {
         const rootClass = "parallax-outer" + (className ? ` ${className}` : "");
 
         return (
-            <Tag className={rootClass} ref={this.mapRefOuter}>
-                <div
-                    className="parallax-inner"
-                    style={style}
-                    ref={this.mapRefInner}
-                >
+            <Tag className={rootClass} style={style} ref={this.mapRefOuter}>
+                <div className="parallax-inner" ref={this.mapRefInner}>
                     {children}
                 </div>
             </Tag>
