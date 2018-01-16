@@ -277,6 +277,7 @@ function ParallaxController() {
      * @param {object} element
      */
     function _setParallaxStyles(element) {
+
         const top = element.attributes.top - scrollY;
         const { totalDist } = element.attributes;
 
