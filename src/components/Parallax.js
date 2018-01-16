@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { offsetMin, offsetMax } from '../utils/propValidation';
-import ParallaxController from '../libs/ParallaxController';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { offsetMin, offsetMax } from "../utils/propValidation";
+import ParallaxController from "../libs/ParallaxController";
 
 export default class Parallax extends Component {
     static defaultProps = {
@@ -11,7 +11,8 @@ export default class Parallax extends Component {
         offsetXMax: 0,
         offsetXMin: 0,
         slowerScrollRate: false, // determines whether scroll rate is faster or slower than standard scroll
-        tag: 'div',
+        tag: "div",
+        style: {}
     };
 
     static propTypes = {
@@ -24,10 +25,11 @@ export default class Parallax extends Component {
         offsetYMin: offsetMin,
         slowerScrollRate: PropTypes.bool.isRequired,
         tag: PropTypes.string.isRequired,
+        style: PropTypes.object
     };
 
     static contextTypes = {
-        parallaxController: PropTypes.object, // not required because this could be rendered on the server.
+        parallaxController: PropTypes.object // not required because this could be rendered on the server.
     };
 
     componentDidMount() {
@@ -45,7 +47,7 @@ export default class Parallax extends Component {
         // If no context is available but the window global is then warn
         if (!this.context.parallaxController && window.ParallaxController) {
             console.log(
-                'Calling ParallaxController.init() has been deprecated in favor of using the <ParallaxProvider /> component. For usage details see: https://github.com/jscottsmith/react-scroll-parallax/tree/v1.1.0#usage'
+                "Calling ParallaxController.init() has been deprecated in favor of using the <ParallaxProvider /> component. For usage details see: https://github.com/jscottsmith/react-scroll-parallax/tree/v1.1.0#usage"
             );
         }
 
@@ -59,8 +61,8 @@ export default class Parallax extends Component {
                 offsetXMin: this.props.offsetXMin,
                 offsetYMax: this.props.offsetYMax,
                 offsetYMin: this.props.offsetYMin,
-                slowerScrollRate: this.props.slowerScrollRate,
-            },
+                slowerScrollRate: this.props.slowerScrollRate
+            }
         });
     }
 
@@ -74,8 +76,8 @@ export default class Parallax extends Component {
                     offsetXMin: nextProps.offsetXMin,
                     offsetYMax: nextProps.offsetYMax,
                     offsetYMin: nextProps.offsetYMin,
-                    slowerScrollRate: nextProps.slowerScrollRate,
-                },
+                    slowerScrollRate: nextProps.slowerScrollRate
+                }
             });
         }
         // resets element styles when disabled
@@ -103,13 +105,17 @@ export default class Parallax extends Component {
     };
 
     render() {
-        const { children, className, tag: Tag } = this.props;
+        const { children, className, tag: Tag, style } = this.props;
 
-        const rootClass = 'parallax-outer' + (className ? ` ${className}` : '');
+        const rootClass = "parallax-outer" + (className ? ` ${className}` : "");
 
         return (
             <Tag className={rootClass} ref={this.mapRefOuter}>
-                <div className="parallax-inner" ref={this.mapRefInner}>
+                <div
+                    className="parallax-inner"
+                    style={style}
+                    ref={this.mapRefInner}
+                >
                     {children}
                 </div>
             </Tag>
